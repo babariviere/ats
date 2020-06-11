@@ -40,8 +40,21 @@ defmodule Ats.MixProject do
       {:phoenix_live_dashboard, "~> 0.2.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
+      {:plug_cowboy, "~> 2.0"},
+
+      # Data processing
+      {:flow, "~> 1.0"},
+
+      # File formats
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:nimble_csv, "~> 0.7"},
+
+      # Geographic libraries
+      {:geo, "~> 3.0"},
+      {:topo, "~> 0.4"},
+
+      # Console
+      {:table_rex, "~> 3.0.0"}
     ]
   end
 
