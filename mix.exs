@@ -12,6 +12,12 @@ defmodule Ats.MixProject do
       aliases: aliases(),
       deps: deps(),
 
+      # Dialyzer
+      dialyzer: [
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        ignore_warnings: ".dialyzer_ignore.exs"
+      ],
+
       # Docs
       name: "Ats",
       source_url: "https://github.com/babariviere/ats",
@@ -65,7 +71,10 @@ defmodule Ats.MixProject do
       {:table_rex, "~> 3.0.0"},
 
       # Tools
-      {:ex_doc, "~> 0.22", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:credo, "~> 1.3", only: [:dev, :test], runtime: false},
+      {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]}
     ]
   end
 
@@ -80,7 +89,9 @@ defmodule Ats.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      lint: ["dialyzer", "credo", "inch"],
+      audit: ["hex.audit", "hex.outdated"]
     ]
   end
 end
