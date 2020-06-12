@@ -152,15 +152,17 @@ defmodule Ats.Dataset do
       |> File.stream!(read_ahead: 100_000)
       |> CSV.parse_stream(skip_headers: false)
 
-    with {:ok, headers} <- parse_csv_headers(hd(Enum.take(stream, 1)), @profession_keys) do
-      map_row = &map_profession_row(&1, headers, keys)
+    case parse_csv_headers(hd(Enum.take(stream, 1)), @profession_keys) do
+      {:ok, headers} ->
+        map_row = &map_profession_row(&1, headers, keys)
 
-      stream
-      |> Stream.drop(1)
-      |> Stream.flat_map(map_row)
-      |> Enum.to_list()
-    else
-      _ -> raise "\"#{path}\" has an invalid csv header, expected: #{inspect(@profession_keys)}"
+        stream
+        |> Stream.drop(1)
+        |> Stream.flat_map(map_row)
+        |> Enum.to_list()
+
+      _ ->
+        raise "\"#{path}\" has an invalid csv header, expected: #{inspect(@profession_keys)}"
     end
   end
 
@@ -172,15 +174,17 @@ defmodule Ats.Dataset do
       Enum.zip(headers, values)
       |> Enum.into(Map.new())
 
-    with {id, _} <- Integer.parse(map.id) do
-      map =
-        map
-        |> Map.put(:id, id)
-        |> Map.take(keys)
+    case Integer.parse(map.id) do
+      {id, _} ->
+        map =
+          map
+          |> Map.put(:id, id)
+          |> Map.take(keys)
 
-      [map]
-    else
-      _ -> []
+        [map]
+
+      _ ->
+        []
     end
   end
 
@@ -227,15 +231,17 @@ defmodule Ats.Dataset do
       |> File.stream!(read_ahead: 100_000)
       |> CSV.parse_stream(skip_headers: false)
 
-    with {:ok, headers} <- parse_csv_headers(hd(Enum.take(stream, 1)), @job_keys) do
-      map_row = &map_job_row(&1, headers, keys)
+    case parse_csv_headers(hd(Enum.take(stream, 1)), @job_keys) do
+      {:ok, headers} ->
+        map_row = &map_job_row(&1, headers, keys)
 
-      stream
-      |> Stream.drop(1)
-      |> Stream.flat_map(map_row)
-      |> Enum.to_list()
-    else
-      _ -> raise "\"#{path}\" has an invalid csv header, expected: #{inspect(@profession_keys)}"
+        stream
+        |> Stream.drop(1)
+        |> Stream.flat_map(map_row)
+        |> Enum.to_list()
+
+      _ ->
+        raise "\"#{path}\" has an invalid csv header, expected: #{inspect(@profession_keys)}"
     end
   end
 
