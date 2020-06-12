@@ -1,5 +1,3 @@
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-
 **Table of Contents**
 
 - [ATS: Welcome To The Jungle technical test](#ats-welcome-to-the-jungle-technical-test)
@@ -8,8 +6,6 @@
   - [Datasets](#datasets)
     - [Continents](#continents)
       - [Way to improve](#way-to-improve)
-
-<!-- markdown-toc end -->
 
 # ATS: Welcome To The Jungle technical test
 
