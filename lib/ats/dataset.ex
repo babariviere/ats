@@ -291,6 +291,7 @@ defmodule Ats.Dataset do
   def categories_per_continent(jobs, continents, categories) do
     jobs
     |> Flow.from_enumerable()
+    |> Flow.partition(stages: 8)
     |> Flow.flat_map(fn job ->
       category = categories[job.profession_id]
 
@@ -304,12 +305,11 @@ defmodule Ats.Dataset do
       if continent != nil, do: [{continent.name, category}], else: []
     end)
     # Partition per continent, as we are using continent as a key
-    |> Flow.partition(key: {:elem, 0})
+    |> Flow.partition(key: {:elem, 0}, stages: length(continents))
     |> Flow.reduce(fn -> %{} end, fn {continent, category}, acc ->
       update_in(acc, [Access.key(continent, %{}), Access.key(category, 0)], &(&1 + 1))
     end)
     |> Enum.sort_by(&elem(&1, 0), :asc)
-    |> Enum.to_list()
   end
 
   @doc """
