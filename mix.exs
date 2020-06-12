@@ -7,10 +7,15 @@ defmodule Ats.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix] ++ Mix.compilers(),
+      compilers: [:rustler, :phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+
+      # Native
+      rustler_crates: [
+        ats: []
+      ],
 
       # Dialyzer
       dialyzer: [
@@ -69,6 +74,9 @@ defmodule Ats.MixProject do
 
       # Console
       {:table_rex, "~> 3.0.0"},
+
+      # Native
+      {:rustler, "~> 0.21.0"},
 
       # Tools
       {:ex_doc, "~> 0.22", only: :dev, runtime: false},

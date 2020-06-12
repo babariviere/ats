@@ -300,7 +300,9 @@ defmodule Ats.Dataset do
       }
 
       continent =
-        Enum.find(continents, fn continent -> Topo.contains?(continent.shape, point) end)
+        Enum.find(continents, fn continent ->
+          Ats.Native.shape_contains?(continent.shape.coordinates, point.coordinates)
+        end)
 
       if continent != nil, do: [{continent.name, category}], else: []
     end)
