@@ -1,3 +1,16 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
+**Table of Contents**
+
+- [ATS: Welcome To The Jungle technical test](#ats-welcome-to-the-jungle-technical-test)
+  - [Usage](#usage)
+    - [Categorize datasets](#categorize-datasets)
+  - [Datasets](#datasets)
+    - [Continents](#continents)
+      - [Way to improve](#way-to-improve)
+
+<!-- markdown-toc end -->
+
 # ATS: Welcome To The Jungle technical test
 
 To start your Phoenix server:
@@ -9,6 +22,37 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## Usage
+
+### Categorize datasets
+
+A command to categorize a set of jobs category per continents. To execute it
+run:
+
+```sh
+mix ats.categorize
+```
+
+By default, it will run with the following settings:
+
+- jobs datasets: `priv/data/technical-test-jobs.csv`
+- professions datasets: `priv/data/technical-test-professions.csv`
+- continents datasets: `priv/data/continents/low.geojson`
+
+You can override these by following help instructions:
+
+```sh
+$ mix help ats.categorize
+
+Categorize offers per continent.
+
+It expects the path of two CSV files. The first one is the jobs dataset and the
+second one is the professions dataset.
+
+    mix ats.categorize JOBS_PATH PROFESSIONS_PATH [--continents-quality [low,medium,high]]
+
+```
+
 ## Datasets
 
 ### Continents
@@ -19,8 +63,8 @@ Simplified with: https://mapshaper.org
 There is 3 datasets for continents in `priv/data`:
 
 - continents/high.geojson: continents in full resolution (high computation)
-- continents/medium.geojson: continents_full simplified to 2%
-- continents/low.geojson: continents_full simplified to 1%
+- continents/medium.geojson: continents/high simplified to 2%
+- continents/low.geojson: continents/high simplified to 1%
 
 Simplified versions give us boundaries that are precise enough.
 Only issue is that it may give false positive for certains cases (coordinates near
@@ -41,11 +85,3 @@ to get the nearest point first and then calculate the value inside the polygon.
 
 Another way would be to use NIF to get native performances when calculating point
 inside a continent polygon.
-
-## Learn more
-
-- Official website: https://www.phoenixframework.org/
-- Guides: https://hexdocs.pm/phoenix/overview.html
-- Docs: https://hexdocs.pm/phoenix
-- Forum: https://elixirforum.com/c/phoenix-forum
-- Source: https://github.com/phoenixframework/phoenix

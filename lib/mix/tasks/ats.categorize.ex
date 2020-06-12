@@ -4,15 +4,17 @@ defmodule Mix.Tasks.Ats.Categorize do
   alias Ats.Dataset
 
   @moduledoc """
-  #{@shortdoc}.
+  Categorize offers per continent.
 
   It expects the path of two CSV files. The first one is the jobs dataset
   and the second one is the professions dataset.
 
       mix ats.categorize JOBS_PATH PROFESSIONS_PATH [--continents-quality [low,medium,high]]
 
-  JOBS_PATH defaults to `priv/data/technical-test-jobs.csv` and
-  PROFESSIONS_PATH defaults to `priv/data/technical-test-professions.csv`.
+  Default values:
+  - JOBS_PATH: `priv/data/technical-test-jobs.csv`
+  - PROFESSIONS_PATH: `priv/data/technical-test-professions.csv`
+  - continents-quality: `low`
 
   The output is a table where the column is the job category and the row
   is the continent.
@@ -25,6 +27,16 @@ defmodule Mix.Tasks.Ats.Categorize do
 
       id,name,category_name
 
+  Continents dataset must be a GeoJSON file with the following format:
+
+      {
+        "features": [
+          {
+            "geometry": {"type": "MultiPolygon", "coordinates": []},
+            "properties": {"continent": "Europe"}
+          }
+        ]
+      }
 
   ## Examples
 
