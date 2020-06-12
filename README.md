@@ -18,9 +18,9 @@ Simplified with: https://mapshaper.org
 
 There is 3 datasets for continents in `priv/data`:
 
-- continents_full.geojson: continents in full resolution (high computation)
-- continents.geojson: continents_full simplified to 2%
-- continents_low.geojson: continents_full simplified to 1%
+- continents/high.geojson: continents in full resolution (high computation)
+- continents/medium.geojson: continents_full simplified to 2%
+- continents/low.geojson: continents_full simplified to 1%
 
 Simplified versions give us boundaries that are precise enough.
 Only issue is that it may give false positive for certains cases (coordinates near
@@ -37,9 +37,10 @@ This gives us 33 false negatives with the low map and 45 with medium map.
 #### Way to improve
 
 Instead of directly checking if point is in the continent, we could sort continents
-to get the nearest point first and then
+to get the nearest point first and then calculate the value inside the polygon.
 
-Another solution would be to use a low poly geojson. One example of it could be this one:
+Another way would be to use NIF to get native performances when calculating point
+inside a continent polygon.
 
 ## Learn more
 

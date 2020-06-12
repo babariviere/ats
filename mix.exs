@@ -10,7 +10,15 @@ defmodule Ats.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+
+      # Docs
+      name: "Ats",
+      source_url: "https://github.com/babariviere/ats",
+      docs: [
+        main: "Ats",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -54,7 +62,10 @@ defmodule Ats.MixProject do
       {:topo, "~> 0.4"},
 
       # Console
-      {:table_rex, "~> 3.0.0"}
+      {:table_rex, "~> 3.0.0"},
+
+      # Tools
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false}
     ]
   end
 

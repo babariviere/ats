@@ -1,0 +1,8 @@
+{
+  "features": [
+    {
+      "geometry": {"type": "MultiPolygon", "coordinates": []},
+      "properties": {"continent": "Europe"}
+    }
+  ]
+}
