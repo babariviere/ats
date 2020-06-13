@@ -7,6 +7,7 @@ defmodule AtsWeb.Resolvers.Jobs do
   import Geo.PostGIS
 
   alias Ats.Applicants.Job
+  alias Ats.Repo
   alias AtsWeb.Schema.Pagination
 
   @doc """
@@ -15,7 +16,7 @@ defmodule AtsWeb.Resolvers.Jobs do
   def list_jobs(_root, args, _info) do
     query = Pagination.apply(Job, args)
 
-    {:ok, Ats.Repo.all(query)}
+    {:ok, Repo.all(query)}
   end
 
   @doc """
@@ -32,7 +33,19 @@ defmodule AtsWeb.Resolvers.Jobs do
             st_dwithin_in_meters(j.place, st_point(^lon, ^lat), ^radius),
         order_by: st_distance(j.place, st_set_srid(st_point(^lon, ^lat), 4326))
 
-    {:ok, Ats.Repo.all(query)}
+    {:ok, Repo.all(query)}
+  end
+
+  @doc """
+  Returns a single job by it's id.
+  """
+  def get_job(_root, %{id: id}, _info) do
+    query = from j in Job, where: j.id == ^id
+
+    case Repo.one(query) do
+      nil -> {:error, "Job with id #{id} is not found"}
+      job -> {:ok, job}
+    end
   end
 
   @doc """

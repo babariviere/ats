@@ -40,7 +40,7 @@ defmodule AtsWeb.Schema do
     field :longitude, non_null(:float)
     field :latitude, non_null(:float)
 
-    @desc "Get a list of jobs near this point"
+    @desc "Get a list of jobs near this point. All jobs at this point will be excluded."
     field :near, list_of(non_null(:job)) do
       arg(:radius, non_null(:integer), description: "Radius in km")
       resolve(&Resolvers.Jobs.list_jobs_near/3)
@@ -72,6 +72,12 @@ defmodule AtsWeb.Schema do
     field :professions, list_of(non_null(:profession)) do
       pagination()
       resolve(&Resolvers.Professions.list_professions/3)
+    end
+
+    @desc "Get a job."
+    field :job, :job do
+      arg(:id, :id)
+      resolve(&Resolvers.Jobs.get_job/3)
     end
 
     @desc "List all jobs."
