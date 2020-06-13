@@ -6,14 +6,14 @@ defmodule Ats.DatasetTest do
 
   @square %Ats.World.Continent{
     name: "Square",
-    shape: %Geo.Polygon{
-      coordinates: [[{0.0, 0.0}, {0.0, 100.0}, {100.0, 100.0}, {100.0, 0.0}, {0.0, 0.0}]]
+    shape: %Geo.MultiPolygon{
+      coordinates: [[[{0.0, 0.0}, {0.0, 100.0}, {100.0, 100.0}, {100.0, 0.0}, {0.0, 0.0}]]]
     }
   }
   @neg_square %Ats.World.Continent{
     name: "Neg Square",
-    shape: %Geo.Polygon{
-      coordinates: [[{0.0, 0.0}, {0.0, -100.0}, {-100.0, -100.0}, {-100.0, 0.0}, {0.0, 0.0}]]
+    shape: %Geo.MultiPolygon{
+      coordinates: [[[{0.0, 0.0}, {0.0, -100.0}, {-100.0, -100.0}, {-100.0, 0.0}, {0.0, 0.0}]]]
     }
   }
 
