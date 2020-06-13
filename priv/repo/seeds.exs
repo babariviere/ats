@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+Ats.Dataset.continent_path!(:high)
+|> Ats.Dataset.read_continents!()
+|> Enum.map(&Ats.World.change_continent/1)
+|> Enum.map(&Ats.Repo.insert!/1)

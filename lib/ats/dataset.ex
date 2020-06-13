@@ -93,6 +93,23 @@ defmodule Ats.Dataset do
     end
   end
 
+  @spec read_continents(binary) :: list(Ats.World.Continent.t()) | no_return()
+  def read_continents!(path) do
+    case read_continents(path) do
+      {:ok, continents} ->
+        continents
+
+      {:error, reason} when is_atom(reason) ->
+        raise File.Error, reason: reason, action: "read file", path: IO.chardata_to_string(path)
+
+      {:error, %Jason.DecodeError{} = err} ->
+        raise err
+
+      {:error, :invalid_format} ->
+        raise "invalid format for file \"#{path}\""
+    end
+  end
+
   defp parse_continent_feature(feature) do
     with {:ok, geometry} <- Map.fetch(feature, "geometry"),
          {:ok, shape} <- Geo.JSON.decode(geometry),
