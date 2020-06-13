@@ -59,7 +59,7 @@ defmodule Ats.Dataset do
       iex> Ats.Dataset.read_continents("test/data/valid/continents.geojson")
       {:ok, [%Ats.World.Continent{
           name: "Europe",
-          shape: %Geo.MultiPolygon{coordinates: [], properties: %{}, srid: nil}
+          shape: %Geo.MultiPolygon{coordinates: [], properties: %{}, srid: 4326}
         }]}
 
   You can get an error if path does not exists or file is not properly formatted.
@@ -111,7 +111,7 @@ defmodule Ats.Dataset do
          {:ok, shape} <- Geo.JSON.decode(geometry),
          {:ok, properties} <- Map.fetch(feature, "properties"),
          {:ok, continent} <- Map.fetch(properties, "continent") do
-      {:ok, %Ats.World.Continent{name: continent, shape: shape}}
+      {:ok, %Ats.World.Continent{name: continent, shape: %{shape | srid: 4326}}}
     else
       _ -> :error
     end
@@ -313,7 +313,8 @@ defmodule Ats.Dataset do
       category = categories[job.profession_id]
 
       point = %Geo.Point{
-        coordinates: {job.office_longitude, job.office_latitude}
+        coordinates: {job.office_longitude, job.office_latitude},
+        srid: 4326
       }
 
       continent =

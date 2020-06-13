@@ -26,7 +26,8 @@ Ats.Dataset.continent_path!(:high)
   job = struct(Ats.Applicants.Job, x)
 
   place = %Geo.Point{
-    coordinates: {x.office_longitude, x.office_latitude}
+    coordinates: {x.office_longitude, x.office_latitude},
+    srid: 4326
   }
 
   %{job | place: place}

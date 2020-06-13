@@ -39,6 +39,12 @@ defmodule AtsWeb.Schema do
   object :point do
     field :longitude, non_null(:float)
     field :latitude, non_null(:float)
+
+    @desc "Get a list of jobs near this point"
+    field :near, list_of(non_null(:job)) do
+      arg(:radius, non_null(:integer), description: "Radius in km")
+      resolve(&Resolvers.Jobs.list_jobs_near/3)
+    end
   end
 
   object :job do
