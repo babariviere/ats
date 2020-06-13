@@ -238,7 +238,7 @@ defmodule Ats.Dataset do
   If the file have an invalid header:
 
       iex> Ats.Dataset.read_jobs!("test/data/invalid/jobs_header.csv")
-      ** (RuntimeError) "test/data/invalid/jobs_header.csv" has an invalid csv header, expected: [:id, :name, :category_name]
+      ** (RuntimeError) "test/data/invalid/jobs_header.csv" has an invalid csv header, expected: [:profession_id, :contract_type, :name, :office_latitude, :office_longitude]
   """
   def read_jobs!(path, keys \\ @job_keys) do
     keys = intersection(keys, @job_keys)
@@ -258,7 +258,7 @@ defmodule Ats.Dataset do
         |> Enum.to_list()
 
       _ ->
-        raise "\"#{path}\" has an invalid csv header, expected: #{inspect(@profession_keys)}"
+        raise "\"#{path}\" has an invalid csv header, expected: #{inspect(@job_keys)}"
     end
   end
 

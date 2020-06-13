@@ -64,6 +64,7 @@ defmodule Ats.MixProject do
       # GraphQL
       {:absinthe, "~> 1.5"},
       {:absinthe_plug, "~> 1.5"},
+{:dataloader, "~> 1.0.0"},
 
       # Data processing
       {:flow, "~> 1.0"},

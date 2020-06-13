@@ -1,21 +1,25 @@
-defmodule AtsWeb.ContinentsResolver do
+defmodule AtsWeb.Resolvers.Continents do
   @moduledoc """
   Resolver for continents method.
   """
 
-  alias Ats.World.Continent
-
   import Ecto.Query, only: [from: 2]
+
+  alias Ats.World.Continent
+  alias Ats.Repo
+  alias AtsWeb.Schema.Pagination
 
   @doc """
   Returns a list of all continents.
   """
-  def all_continents(_root, _args, _info) do
+  def list_continents(_root, args, _info) do
     query =
       from c in Continent,
         select: [:id, :name]
 
-    continents = Ats.Repo.all(query)
+    query = Pagination.apply(query, args)
+
+    continents = Repo.all(query)
 
     {:ok, continents}
   end

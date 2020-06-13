@@ -19,3 +19,17 @@ Ats.Dataset.continent_path!(:high)
 |> Ats.Dataset.read_professions!()
 |> Enum.map(&struct(Ats.Applicants.Profession, &1))
 |> Enum.map(&Ats.Repo.insert!(&1, on_conflict: :replace_all, conflict_target: :id))
+
+"priv/data/technical-test-jobs.csv"
+|> Ats.Dataset.read_jobs!()
+|> Enum.map(fn x ->
+  job = struct(Ats.Applicants.Job, x)
+
+  place = %Geo.Point{
+    coordinates: {x.office_longitude, x.office_latitude}
+  }
+
+  %{job | place: place}
+end)
+|> Enum.map(&Ats.Applicants.Job.profession_changeset(&1, %{}))
+|> Enum.map(&Ats.Repo.insert!/1)
