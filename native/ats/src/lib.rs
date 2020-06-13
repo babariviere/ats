@@ -26,7 +26,7 @@ type Polygon = Vec<GeoLine>;
 type MultiPolygon = Vec<Polygon>;
 
 struct Continent {
-    coordinates: MultiPolygon,
+    coordinates: geo::MultiPolygon<f64>,
 }
 
 // Define Continent struct on load.
@@ -62,7 +62,7 @@ fn continent_new<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error>
     });
 
     let continent = Continent {
-        coordinates: result?,
+        coordinates: create_geo_multi_polygon(&result?),
     };
 
     Ok(ResourceArc::new(continent).encode(env))
@@ -71,11 +71,9 @@ fn continent_new<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error>
 fn shape_contains<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
     let shape: ResourceArc<Continent> = args[0].decode()?;
     let point: (f64, f64) = decode_point(args[1])?;
-
-    let shape: geo::MultiPolygon<f64> = create_geo_multi_polygon(&shape.coordinates);
     let point: geo::Point<f64> = point.into();
 
-    if shape.contains(&point) {
+    if shape.coordinates.contains(&point) {
         Ok(atoms::__true__().encode(env))
     } else {
         Ok(atoms::__false__().encode(env))
