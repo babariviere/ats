@@ -5,6 +5,7 @@
     - [Categorize datasets](#categorize-datasets)
   - [Datasets](#datasets)
     - [Continents](#continents)
+      - [Performances](#performances)
       - [Way to improve](#way-to-improve)
 
 # ATS: Welcome To The Jungle technical test
@@ -74,10 +75,27 @@ With given datasets, with a total of `5069` locations. We have:
 
 This gives us 33 false negatives with the low map and 45 with medium map.
 
+#### Performances
+
+To get maximum performance on calculation with continents multi polygon,
+we are using a combination of Rust + NIF (for native performance) and Flow (for concurrency).
+
+This allows us to have a major performance improvement.
+Here are some numbers (not accurate, they are calculated with command `time`).
+
+For continents/low.geojson dataset:
+
+- Elixir + Rust: `0.57s`
+- Elixir only: `1.61s` (2.8x slower)
+
+For continents/high.geojson dataset:
+
+- Elixir + Rust: `1.89s`
+- Elixir only: `241.47s` (127.7x slower)
+
 #### Way to improve
 
 Instead of directly checking if point is in the continent, we could sort continents
 to get the nearest point first and then calculate the value inside the polygon.
 
-Another way would be to use NIF to get native performances when calculating point
-inside a continent polygon.
+Use an external service, like Google Map, where we give the coordinates and it returns the country/continent.
