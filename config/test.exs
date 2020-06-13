@@ -10,7 +10,9 @@ config :ats, Ats.Repo,
   password: "postgres",
   database: "ats_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  port: "6543",
+  pool: Ecto.Adapters.SQL.Sandbox,
+  types: Ats.PostgresTypes
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

@@ -70,7 +70,7 @@ defmodule Ats.MixProject do
 
       # Geographic libraries
       {:geo, "~> 3.0"},
-      {:topo, "~> 0.4"},
+      {:geo_postgis, "~> 3.1"},
 
       # Console
       {:table_rex, "~> 3.0.0"},
