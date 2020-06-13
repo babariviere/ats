@@ -28,5 +28,6 @@ ats-*.tar
 /priv/static/
 
 /priv/native/
+/priv/plts/
 
 /native/ats/target/
