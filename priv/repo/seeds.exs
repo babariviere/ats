@@ -14,3 +14,8 @@ Ats.Dataset.continent_path!(:high)
 |> Ats.Dataset.read_continents!()
 |> Enum.map(&Ats.World.change_continent/1)
 |> Enum.map(&Ats.Repo.insert!(&1, on_conflict: :replace_all, conflict_target: :name))
+
+"priv/data/technical-test-professions.csv"
+|> Ats.Dataset.read_professions!()
+|> Enum.map(&struct(Ats.Applicants.Profession, &1))
+|> Enum.map(&Ats.Repo.insert!(&1, on_conflict: :replace_all, conflict_target: :id))
