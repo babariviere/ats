@@ -6,5 +6,7 @@ defmodule Ats.Repo.Migrations.CreateContinents do
       add :name, :string, null: false
       add :shape, :geometry, null: false
     end
+
+    create unique_index(:continents, :name)
   end
 end

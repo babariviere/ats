@@ -5,8 +5,15 @@ defmodule AtsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", AtsWeb do
+  scope "/" do
     pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: AtsWeb.Schema,
+      interface: :simple,
+      context: %{pubsub: AtsWeb.Endpoint}
+
+    forward "/", Absinthe.Plug, schema: AtsWeb.Schema
   end
 
   # Enables LiveDashboard only for development

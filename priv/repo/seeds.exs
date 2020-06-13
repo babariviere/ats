@@ -13,4 +13,4 @@
 Ats.Dataset.continent_path!(:high)
 |> Ats.Dataset.read_continents!()
 |> Enum.map(&Ats.World.change_continent/1)
-|> Enum.map(&Ats.Repo.insert!/1)
+|> Enum.map(&Ats.Repo.insert!(&1, on_conflict: :replace_all, conflict_target: :name))

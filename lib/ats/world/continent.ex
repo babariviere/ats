@@ -22,6 +22,7 @@ defmodule Ats.World.Continent do
     continent
     |> cast(attrs, [:name, :shape])
     |> validate_required([:name, :shape])
+    |> unique_constraint(:name)
     |> validate_shape()
   end
 

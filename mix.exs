@@ -61,6 +61,10 @@ defmodule Ats.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:plug_cowboy, "~> 2.0"},
 
+      # GraphQL
+      {:absinthe, "~> 1.5"},
+      {:absinthe_plug, "~> 1.5"},
+
       # Data processing
       {:flow, "~> 1.0"},
 
