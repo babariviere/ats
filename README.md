@@ -12,6 +12,7 @@
 
 To start your Phoenix server:
 
+- Start database with `docker-compose up -d`
 - Setup the project with `mix setup`
 - Start Phoenix endpoint with `mix phx.server`
 

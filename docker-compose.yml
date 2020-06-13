@@ -1,0 +1,15 @@
+version: "3.0"
+
+services:
+  db:
+    image: kartoza/postgis:latest
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASS=postgres
+      - POSTGRES_DB=ats_dev
+    ports:
+      - 6543:5432
+    ## Uncomment for data persistance
+    # volumes:
+    #   - volumes/postgres:/var/lib/postgresql/data
