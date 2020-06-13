@@ -12,6 +12,4 @@ crate-type = ["dylib"]
 [dependencies]
 rustler = "0.21.1"
 lazy_static = "1.0"
-serde_rustler = "0.1.0"
 geo = "0.13.0"
-geojson = { version = "0.18.0", features = [ "geo-types" ] }

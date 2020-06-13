@@ -289,6 +289,10 @@ defmodule Ats.Dataset do
   @spec categories_per_continent(list(job()), list(Ats.World.Continent.t()), list(category())) ::
           list(map())
   def categories_per_continent(jobs, continents, categories) do
+    native_continents =
+      continents
+      |> Enum.map(&{&1.name, Ats.Native.continent_new(&1.shape.coordinates)})
+
     jobs
     |> Flow.from_enumerable()
     |> Flow.partition(stages: 8)
@@ -300,11 +304,11 @@ defmodule Ats.Dataset do
       }
 
       continent =
-        Enum.find(continents, fn continent ->
-          Ats.Native.shape_contains?(continent.shape.coordinates, point.coordinates)
+        Enum.find(native_continents, fn {_, continent} ->
+          Ats.Native.shape_contains?(continent, point.coordinates)
         end)
 
-      if continent != nil, do: [{continent.name, category}], else: []
+      if continent != nil, do: [{elem(continent, 0), category}], else: []
     end)
     # Partition per continent, as we are using continent as a key
     |> Flow.partition(key: {:elem, 0}, stages: length(continents))
