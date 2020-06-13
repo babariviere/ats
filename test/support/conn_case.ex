@@ -23,6 +23,7 @@ defmodule AtsWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import AtsWeb.ConnCase
+      import Bureaucrat.Helpers
 
       alias AtsWeb.Router.Helpers, as: Routes
 

@@ -51,6 +51,24 @@ second one is the professions dataset.
 
 ```
 
+### Tests
+
+To run test, execute this command:
+
+```sh
+mix test
+```
+
+With the usage of the library `bureaucrat`, it's also possible to generate documentation from tests results.
+You can generate those with this commands:
+
+```sh
+DOC=1 mix test
+mix docs
+```
+
+After that, open `doc/index.html` and go to `Pages/ATS Examples`
+
 ## Datasets
 
 ### Continents

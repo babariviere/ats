@@ -29,7 +29,7 @@ defmodule Ats.MixProject do
       source_url: "https://github.com/babariviere/ats",
       docs: [
         main: "Ats",
-        extras: ["README.md"]
+        extras: ["README.md", "guides/examples.md"]
       ]
     ]
   end
@@ -88,7 +88,8 @@ defmodule Ats.MixProject do
       {:ex_doc, "~> 0.22", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:credo, "~> 1.3", only: [:dev, :test], runtime: false},
-      {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]}
+      {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]},
+      {:bureaucrat, "~> 0.2.7"}
     ]
   end
 

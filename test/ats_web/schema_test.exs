@@ -29,9 +29,11 @@ defmodule AtsWeb.SchemaTest do
       }
     ]
 
-    setup do
+    setup context do
       Enum.map(@jobs, &Repo.insert!/1)
-      :ok
+      conn = plug_doc(context.conn, module: __MODULE__, action: :index)
+
+      {:ok, %{context | conn: conn}}
     end
 
     test "query: jobs names", %{conn: conn} do
@@ -44,9 +46,11 @@ defmodule AtsWeb.SchemaTest do
       """
 
       conn =
-        post(conn, "/api", %{
+        conn
+        |> post("/api", %{
           "query" => query
         })
+        |> doc
 
       assert json_response(conn, 200) == %{
                "data" => %{
@@ -69,9 +73,11 @@ defmodule AtsWeb.SchemaTest do
       """
 
       conn =
-        post(conn, "/api", %{
+        conn
+        |> post("/api", %{
           "query" => query
         })
+        |> doc
 
       assert json_response(conn, 200) == %{
                "data" => %{
@@ -97,9 +103,11 @@ defmodule AtsWeb.SchemaTest do
       """
 
       conn =
-        post(conn, "/api", %{
+        conn
+        |> post("/api", %{
           "query" => query
         })
+        |> doc
 
       assert json_response(conn, 200) == %{
                "data" => %{
@@ -126,9 +134,11 @@ defmodule AtsWeb.SchemaTest do
       """
 
       conn =
-        post(conn, "/api", %{
+        conn
+        |> post("/api", %{
           "query" => query
         })
+        |> doc
 
       assert json_response(conn, 200) == %{
                "data" => %{

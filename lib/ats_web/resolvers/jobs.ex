@@ -14,7 +14,11 @@ defmodule AtsWeb.Resolvers.Jobs do
   Returns a list of all jobs.
   """
   def list_jobs(_root, args, _info) do
-    query = Pagination.apply(Job, args)
+    query =
+      from j in Job,
+        order_by: j.id
+
+    query = Pagination.apply(query, args)
 
     {:ok, Repo.all(query)}
   end
