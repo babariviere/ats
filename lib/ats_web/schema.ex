@@ -4,11 +4,8 @@ defmodule AtsWeb.Schema do
   """
   use Absinthe.Schema
 
-  import Absinthe.Resolution.Helpers, only: [dataloader: 1]
-
-  alias AtsWeb.Resolvers
   alias Ats.Applicants
-  import AtsWeb.Schema.Pagination
+  alias AtsWeb.Resolvers
 
   def context(ctx) do
     loader =
@@ -22,18 +19,9 @@ defmodule AtsWeb.Schema do
     [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
   end
 
-  object :continent do
-    field :id, non_null(:id)
-    field :name, non_null(:string)
-  end
-
-  object :profession do
-    field :id, non_null(:id)
-    field :name, non_null(:string)
-    field :category_name, non_null(:string)
-
-    field :jobs, list_of(non_null(:job)), resolve: dataloader(Applicants)
-  end
+  import_types(AtsWeb.Schema.JobTypes)
+  import_types(AtsWeb.Schema.ProfessionTypes)
+  import_types(AtsWeb.Schema.ContinentTypes)
 
   @desc "A geographic point"
   object :point do
@@ -47,44 +35,10 @@ defmodule AtsWeb.Schema do
     end
   end
 
-  object :job do
-    field :id, non_null(:id)
-    field :name, non_null(:string)
-    field :contract_type, non_null(:string)
-
-    field :profession, :profession do
-      resolve(dataloader(Applicants))
-    end
-
-    field :place, :point do
-      resolve(&Resolvers.Jobs.place/3)
-    end
-  end
-
   query do
-    @desc "List all continents."
-    field :continents, list_of(non_null(:continent)) do
-      pagination()
-      resolve(&Resolvers.Continents.list_continents/3)
-    end
-
-    @desc "List all professions."
-    field :professions, list_of(non_null(:profession)) do
-      pagination()
-      resolve(&Resolvers.Professions.list_professions/3)
-    end
-
-    @desc "Get a job."
-    field :job, :job do
-      arg(:id, :id)
-      resolve(&Resolvers.Jobs.get_job/3)
-    end
-
-    @desc "List all jobs."
-    field :jobs, list_of(non_null(:job)) do
-      pagination()
-      resolve(&Resolvers.Jobs.list_jobs/3)
-    end
+    import_fields(:job_queries)
+    import_fields(:profession_queries)
+    import_fields(:continent_queries)
 
     @desc "Create a point to make geographical queries."
     field :point, :point do
