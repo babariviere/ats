@@ -105,8 +105,8 @@ If you need to exclude a file from test coverage, you can add it in `coveralls.j
 
 ### Continents
 
-Source: https://gist.github.com/cmunns/76fb72646a68202e6bde
-Simplified with: https://mapshaper.org
+- _Source_ : https://gist.github.com/cmunns/76fb72646a68202e6bde
+- _Simplified with_ : https://mapshaper.org
 
 There is 3 datasets for continents in `priv/data`:
 
@@ -144,9 +144,91 @@ For continents/high.geojson dataset:
 - Elixir + Rust: `1.89s`
 - Elixir only: `241.47s` (127.7x slower)
 
-#### Way to improve
+NIF implementation can be found in `native` folder with Elixir bindings in `ats/native.ex`.
 
-Instead of directly checking if point is in the continent, we could sort continents
-to get the nearest point first and then calculate the value inside the polygon.
+#### Local vs API
 
-Use an external service, like Google Map, where we give the coordinates and it returns the country/continent.
+An other implementation that was possible is by using an API.
+However, my idea was to have a mix task that can be run locally without internet.
+Of course you will have to download dataset to get access to continents data.
+However it's a one time download and it's already included in the git repository.
+
+So here is my list of pro and cons for each implementation.
+
+**Local**
+
+Pros:
+
+- No internet connection required
+- Predictive data, so it can be used for test and be deterministic
+
+Cons:
+
+- Can be slow on local machine (depends on the hardware and the dataset chosen)
+- Data needs to be updated manually
+
+**API** (like Google Maps for example)
+
+Pros:
+
+- Always accurate, big services are used by millions of peoples and are trusted sources
+- No calculation required
+
+Cons:
+
+- Requires internet (that's not a big con)
+- Needs a service to be written for (or an external library)
+- Rates limiting
+- Can be slow for a lot of requests
+
+So, I think the cost of running it locally by using PostGIS (which is fast on small shape)
+or by doing computations with a system programming languages (Rust for example)
+is lower than using an API.
+
+It's faster to makes the calculation locally than making the request to an external
+service. There is no need to think about batching the request or handling errors
+(even if Elixir does it well).
+
+## Choice of technologies
+
+### Why Elixir
+
+To build an API that is scalable, fault-tolerant and simple to test, I think Elixir is a perfect fit.
+As it is a new language that uses a strong technology (Erlang VM), it is safe to use and in bonus, you
+have a more modern syntax.
+
+Otherwise, I could have chosen Go, but, the language as a few issues:
+
+- interface feels really hacky when it is used incorrectly
+- the use of pointer is good and bad at the same time (too much error-prone)
+- it's GraphQL ecosystem is not mature enough, existing libraries have to use runtime
+  features from Go which are known to be unsafe
+
+### Why Rust
+
+I needed raw performances to make geographical calculations, which Elixir can't do because of the
+VM implementation.
+For this, a system programming languages that can be plugged to NIF was required.
+So, I had two choices; C or Rust.
+
+C is great but it is too much unsafe. So, Rust was a great fit with Elixir.
+The community has made some great tooling to make Elixir + Rust development easier.
+The setup of [rustler](https://github.com/rusterlium/rustler) was a simple command
+and "everything" was ready (apart from the code which has to be written).
+
+There is a lot of great articles on why "Elixir + Rust" is great. Here you can find
+one from Discord: https://blog.discord.com/using-rust-to-scale-elixir-for-11-million-concurrent-users-c6f19fc029d3
+
+### Why PostgreSQL
+
+I needed a database that was able to do geospatial queries. I had two choices; MongoDB or PostgreSQL.
+MongoDB has direct support for GeoJSON, which is pretty good for importing data. Plus, it can handle
+GeoSpatial queries pretty well.
+
+However, I choose PostgreSQL because:
+
+- his data is structured
+- his integration with Elixir / Ecto is the best (as it is the default)
+- PostgreSQL has better performance than MongoDB
+
+Otherwise, for scalability, MongoDB is better as it handles horizontal scaling compared to PostgreSQL.
