@@ -305,7 +305,7 @@ defmodule Ats.Dataset do
   def categories_per_continent(jobs, continents, categories) do
     native_continents =
       continents
-      |> Enum.map(&{&1.name, Ats.Native.continent_new(&1.shape.coordinates)})
+      |> Enum.map(&{&1.name, Ats.Native.multi_polygon(&1.shape.coordinates)})
 
     jobs
     |> Flow.from_enumerable()
@@ -320,7 +320,7 @@ defmodule Ats.Dataset do
 
       continent =
         Enum.find(native_continents, fn {_, continent} ->
-          Ats.Native.shape_contains?(continent, point.coordinates)
+          Ats.Native.multi_polygon_contains?(continent, point.coordinates)
         end)
 
       if continent != nil, do: [{elem(continent, 0), category}], else: []

@@ -14,8 +14,8 @@ mod atoms {
 rustler::rustler_export_nifs! {
     "Elixir.Ats.Native",
     [
-        ("continent_new", 1, continent_new),
-        ("shape_contains?", 2, shape_contains, rustler::SchedulerFlags::DirtyCpu)
+        ("multi_polygon", 1, multi_polygon),
+        ("multi_polygon_contains?", 2, multi_polygon_contains, rustler::SchedulerFlags::DirtyCpu)
     ],
     Some(on_load)
 }
@@ -56,7 +56,7 @@ fn decode_point<'a>(term: Term<'a>) -> NifResult<Point> {
     Ok((a, b))
 }
 
-fn continent_new<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
+fn multi_polygon<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
     let result: NifResult<MultiPolygon> = map_nif_list(args[0], |x| {
         map_nif_list(x, |y| map_nif_list(y, |z| decode_point(z)))
     });
@@ -68,7 +68,7 @@ fn continent_new<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error>
     Ok(ResourceArc::new(continent).encode(env))
 }
 
-fn shape_contains<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
+fn multi_polygon_contains<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
     let shape: ResourceArc<Continent> = args[0].decode()?;
     let point: (f64, f64) = decode_point(args[1])?;
     let point: geo::Point<f64> = point.into();
