@@ -1,4 +1,5 @@
 defmodule Ats.DocWriter do
+  @moduledoc false
   alias Bureaucrat.JSON
 
   def write(records, path) do
