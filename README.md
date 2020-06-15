@@ -1,8 +1,11 @@
 **Table of Contents**
 
 - [ATS: Welcome To The Jungle technical test](#ats-welcome-to-the-jungle-technical-test)
+  - [Requirements](#requirements)
   - [Usage](#usage)
+    - [API](#api)
     - [Categorize datasets](#categorize-datasets)
+    - [Tests](#tests)
   - [Datasets](#datasets)
     - [Continents](#continents)
       - [Performances](#performances)
@@ -10,17 +13,26 @@
 
 # ATS: Welcome To The Jungle technical test
 
-To start your Phoenix server:
+## Requirements
+
+- Elixir 1.10 (tested with OTP 22) [Install instructions](https://elixir-lang.org/install.html)
+- Rust 1.41 [Install instructions](https://www.rust-lang.org/tools/install)
+
+## Usage
+
+### API
+
+To start API:
 
 - Start database with `docker-compose up -d`
 - Setup the project with `mix setup`
 - Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:4000/api/graphiql`](http://localhost:4000/api/graphiql) from your browser.
+Or if you want to use the API, you can make GraphQL queries to [localhost:4000/api](http://localhost:4000/api).
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Usage
+You can find examples [here](guides/examples.md).
+They are generated from tests. More info [here](#tests).
 
 ### Categorize datasets
 
