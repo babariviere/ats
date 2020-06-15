@@ -1,7 +1,7 @@
 # ATS Examples
 
 ## AtsWeb.Schema.Continents
-### query: continents names
+### List all continents
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -27,7 +27,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5gfj_wGb5MAAAbL
+x-request-id: FhjIQ2pTXLp3344AAADD
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -50,7 +50,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### query: continents pagination
+### List all continents with pagination
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -76,7 +76,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5EpisIPDiIAAAZB
+x-request-id: FhjIQ2EJYonXQOIAAAJC
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -97,7 +97,7 @@ content-type: application/json; charset=utf-8
 ```
 
 ## AtsWeb.Schema.Jobs
-### query: jobs names
+### List all jobs
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -123,7 +123,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5wFupQxBVkAAAhB
+x-request-id: FhjIQ28kPU1Hz4wAAARE
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -146,7 +146,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### query: jobs pagination
+### List all jobs with pagination
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -172,7 +172,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5raLXSMYnUAAAjL
+x-request-id: FhjIQ23K6d3o--QAAANK
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -192,7 +192,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### query: jobs near A (1 km)
+### List all jobs near another job
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -222,7 +222,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5mZesI6h-QAAAeL
+x-request-id: FhjIQ3CJwlaWAXMAAAMD
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -243,7 +243,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### query: jobs near A (2 km)
+### Get a single job
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -257,11 +257,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 ```
 {
   job(id: "1") {
-    place {
-      near(radius: 2) {
-        name
-      }
-    }
+    name
   }
 }
 
@@ -273,7 +269,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5gfVKmWAXMAAACJ
+x-request-id: FhjIQ2vrUuTyb58AAAJD
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -282,22 +278,13 @@ content-type: application/json; charset=utf-8
 {
   "data": {
     "job": {
-      "place": {
-        "near": [
-          {
-            "name": "B"
-          },
-          {
-            "name": "C"
-          }
-        ]
-      }
+      "name": "A"
     }
   }
 }
 ```
 
-### query: job not found
+### Get an inexistant job
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -323,7 +310,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5GOzQ0tnpMAAAaB
+x-request-id: FhjIQ2p_mUxfEDcAAAGD
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -351,7 +338,7 @@ content-type: application/json; charset=utf-8
 ```
 
 ## AtsWeb.Schema.Professions
-### query: professions names
+### List all professions
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -378,7 +365,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5ckuWcWacoAAAHC
+x-request-id: FhjIQ2keSPv5d1oAAARB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -404,7 +391,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### query: professions pagination
+### List all professions with pagination
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -430,7 +417,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhi2M5AIb8IVjAEAAABJ
+x-request-id: FhjIQ1_tqISJ4lwAAAIC
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__

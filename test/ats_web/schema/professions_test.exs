@@ -44,7 +44,7 @@ defmodule AtsWeb.Schema.ProfessionsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("List all professions")
 
     assert json_response(conn, 200) == %{
              "data" => %{
@@ -71,7 +71,7 @@ defmodule AtsWeb.Schema.ProfessionsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("List all professions with pagination")
 
     assert json_response(conn, 200) == %{
              "data" => %{

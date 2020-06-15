@@ -8,20 +8,20 @@ defmodule AtsWeb.Schema.JobsTest do
     %Job{
       id: 1,
       name: "A",
-      contract_type: "FULL_TIME",
+      contract_type: :full_time,
       place: %Geo.Point{coordinates: {48.855788, 2.338990}, srid: 4326}
     },
     %Job{
       id: 2,
       name: "B",
-      contract_type: "FULL_TIME",
+      contract_type: :full_time,
       # 0.5 km from Job A
       place: %Geo.Point{coordinates: {48.853517, 2.334300}, srid: 4326}
     },
     %Job{
       id: 3,
       name: "C",
-      contract_type: "PART_TIME",
+      contract_type: :part_time,
       # 1.3 km from Job A
       # 0.75 km from Job B
       place: %Geo.Point{coordinates: {48.848400, 2.328240}, srid: 4326}
@@ -49,7 +49,7 @@ defmodule AtsWeb.Schema.JobsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("List all jobs")
 
     assert json_response(conn, 200) == %{
              "data" => %{
@@ -76,7 +76,7 @@ defmodule AtsWeb.Schema.JobsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("List all jobs with pagination")
 
     assert json_response(conn, 200) == %{
              "data" => %{
@@ -106,7 +106,7 @@ defmodule AtsWeb.Schema.JobsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("List all jobs near another job")
 
     assert json_response(conn, 200) == %{
              "data" => %{
@@ -137,7 +137,6 @@ defmodule AtsWeb.Schema.JobsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
 
     assert json_response(conn, 200) == %{
              "data" => %{
@@ -146,6 +145,29 @@ defmodule AtsWeb.Schema.JobsTest do
                    "near" => [%{"name" => "B"}, %{"name" => "C"}]
                  }
                }
+             }
+           }
+  end
+
+  test "query: get a job", %{conn: conn} do
+    query = """
+    {
+      job(id: "1") {
+        name
+      }
+    }
+    """
+
+    conn =
+      conn
+      |> post("/api", %{
+        "query" => query
+      })
+      |> doc("Get a single job")
+
+    assert json_response(conn, 200) == %{
+             "data" => %{
+               "job" => %{"name" => "A"}
              }
            }
   end
@@ -164,7 +186,7 @@ defmodule AtsWeb.Schema.JobsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("Get an inexistant job")
 
     assert json_response(conn, 200) == %{
              "data" => %{

@@ -71,6 +71,9 @@ defmodule Ats.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:plug_cowboy, "~> 2.0"},
 
+      # Database
+      {:ecto_enum, "~> 1.4"},
+
       # GraphQL
       {:absinthe, "~> 1.5"},
       {:absinthe_plug, "~> 1.5"},

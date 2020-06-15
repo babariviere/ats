@@ -76,9 +76,9 @@ defmodule Ats.ApplicantsTest do
     @valid_point %Geo.Point{coordinates: {1.0, 2.0}}
     @updated_point %Geo.Point{coordinates: {2.0, 3.0}}
 
-    @valid_attrs %{contract_type: "some contract_type", name: "some name", place: @valid_point}
+    @valid_attrs %{contract_type: :full_time, name: "some name", place: @valid_point}
     @update_attrs %{
-      contract_type: "some updated contract_type",
+      contract_type: :part_time,
       name: "some updated name",
       place: @updated_point
     }
@@ -105,7 +105,7 @@ defmodule Ats.ApplicantsTest do
 
     test "create_job/1 with valid data creates a job" do
       assert {:ok, %Job{} = job} = Applicants.create_job(@valid_attrs)
-      assert job.contract_type == "some contract_type"
+      assert job.contract_type == :full_time
       assert job.name == "some name"
       assert job.place == @valid_point
     end
@@ -117,7 +117,7 @@ defmodule Ats.ApplicantsTest do
     test "update_job/2 with valid data updates the job" do
       job = job_fixture()
       assert {:ok, %Job{} = job} = Applicants.update_job(job, @update_attrs)
-      assert job.contract_type == "some updated contract_type"
+      assert job.contract_type == :part_time
       assert job.name == "some updated name"
       assert job.place == @updated_point
     end

@@ -5,9 +5,10 @@ defmodule Ats.Applicants.Job do
   import Ecto.Changeset
 
   alias Ats.Applicants.Profession
+  alias Ats.Applicants.ContractType
 
   schema "jobs" do
-    field :contract_type, :string
+    field :contract_type, ContractType
     field :name, :string
     field :place, Geo.PostGIS.Geometry
     belongs_to :profession, Profession

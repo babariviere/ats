@@ -219,7 +219,7 @@ defmodule Ats.Dataset do
   ## Examples
 
       iex> Ats.Dataset.read_jobs!("test/data/valid/jobs.csv")
-      [%{profession_id: 1, contract_type: "FULL_TIME", name: "Backend Dev", office_latitude: 0.0, office_longitude: 0.0}]
+      [%{profession_id: 1, contract_type: "full_time", name: "Backend Dev", office_latitude: 0.0, office_longitude: 0.0}]
 
   You can also filters keys to avoid returning a big map.
 
@@ -271,6 +271,7 @@ defmodule Ats.Dataset do
          {office_longitude, _} <- Float.parse(map.office_longitude) do
       map =
         map
+        |> Map.put(:contract_type, String.downcase(map.contract_type))
         |> Map.put(:profession_id, profession_id)
         |> Map.put(:office_latitude, office_latitude)
         |> Map.put(:office_longitude, office_longitude)

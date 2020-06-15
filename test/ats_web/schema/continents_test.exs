@@ -48,7 +48,7 @@ defmodule AtsWeb.Schema.ContinentsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("List all continents")
 
     assert json_response(conn, 200) == %{
              "data" => %{
@@ -75,7 +75,7 @@ defmodule AtsWeb.Schema.ContinentsTest do
       |> post("/api", %{
         "query" => query
       })
-      |> doc
+      |> doc("List all continents with pagination")
 
     assert json_response(conn, 200) == %{
              "data" => %{
