@@ -47,7 +47,7 @@ defmodule AtsWeb.Resolvers.Jobs do
     query = from j in Job, where: j.id == ^id
 
     case Repo.one(query) do
-      nil -> {:error, "Job with id #{id} is not found"}
+      nil -> {:error, "Job with id #{id} does not exists"}
       job -> {:ok, job}
     end
   end

@@ -195,7 +195,7 @@ defmodule AtsWeb.Schema.JobsTest do
              "errors" => [
                %{
                  "locations" => [%{"column" => 3, "line" => 2}],
-                 "message" => "Job with id 0 is not found",
+                 "message" => "Job with id 0 does not exists",
                  "path" => ["job"]
                }
              ]
