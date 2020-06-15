@@ -1,7 +1,103 @@
 # ATS Examples
 
-## AtsWeb.Schema
-### jobs query: jobs names
+## AtsWeb.Schema.Continents
+### query: continents names
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+{
+  continents {
+    name
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: Fhi2M5gfj_wGb5MAAAbL
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "data": {
+    "continents": [
+      {
+        "name": "Europe"
+      },
+      {
+        "name": "Africa"
+      },
+      {
+        "name": "South America"
+      }
+    ]
+  }
+}
+```
+
+### query: continents pagination
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+{
+  continents(first: 2, offset: 1) {
+    name
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: Fhi2M5EpisIPDiIAAAZB
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "data": {
+    "continents": [
+      {
+        "name": "Africa"
+      },
+      {
+        "name": "South America"
+      }
+    ]
+  }
+}
+```
+
+## AtsWeb.Schema.Jobs
+### query: jobs names
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -27,7 +123,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhizSyxPQ5f1FHgAAAZB
+x-request-id: Fhi2M5wFupQxBVkAAAhB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -50,7 +146,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### jobs query: jobs pagination
+### query: jobs pagination
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -76,7 +172,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhizSy3ibaUukywAAAdB
+x-request-id: Fhi2M5raLXSMYnUAAAjL
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -96,7 +192,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### jobs query: jobs near A (1 km)
+### query: jobs near A (1 km)
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -126,7 +222,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhizSyrqq8FT4qwAAAED
+x-request-id: Fhi2M5mZesI6h-QAAAeL
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -147,7 +243,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### jobs query: jobs near A (2 km)
+### query: jobs near A (2 km)
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -177,7 +273,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhizSyjyipS7r1UAAATB
+x-request-id: Fhi2M5gfVKmWAXMAAACJ
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -201,7 +297,7 @@ content-type: application/json; charset=utf-8
 }
 ```
 
-### jobs query: job not found
+### query: job not found
 #### Request
 * __Method:__ POST
 * __Path:__ /api
@@ -227,7 +323,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhizSyF4UreI51IAAAAJ
+x-request-id: Fhi2M5GOzQ0tnpMAAAaB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -251,6 +347,106 @@ content-type: application/json; charset=utf-8
       ]
     }
   ]
+}
+```
+
+## AtsWeb.Schema.Professions
+### query: professions names
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+{
+  professions {
+    name
+    categoryName
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: Fhi2M5ckuWcWacoAAAHC
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "data": {
+    "professions": [
+      {
+        "categoryName": "Tech",
+        "name": "A"
+      },
+      {
+        "categoryName": "Tech",
+        "name": "B"
+      },
+      {
+        "categoryName": "Business",
+        "name": "C"
+      }
+    ]
+  }
+}
+```
+
+### query: professions pagination
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+{
+  professions(first: 2, offset: 1) {
+    name
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: Fhi2M5AIb8IVjAEAAABJ
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "data": {
+    "professions": [
+      {
+        "name": "B"
+      },
+      {
+        "name": "C"
+      }
+    ]
+  }
 }
 ```
 

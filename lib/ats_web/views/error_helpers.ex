@@ -3,6 +3,7 @@ defmodule AtsWeb.ErrorHelpers do
   Conveniences for translating and building error messages.
   """
 
+  # coveralls-ignore-start
   @doc """
   Translates an error message.
   """
@@ -13,4 +14,6 @@ defmodule AtsWeb.ErrorHelpers do
       String.replace(acc, "%{#{key}}", to_string(value))
     end)
   end
+
+  # coveralls-ignore-end
 end
