@@ -17,6 +17,8 @@
 
 - Elixir 1.10 (tested with OTP 22) [Install instructions](https://elixir-lang.org/install.html)
 - Rust 1.41 [Install instructions](https://www.rust-lang.org/tools/install)
+- Docker [Install instructions](https://docs.docker.com/get-docker/)
+- Docker Compose [Install instructions](https://docs.docker.com/compose/install/)
 
 ## Usage
 
