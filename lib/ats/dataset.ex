@@ -92,6 +92,27 @@ defmodule Ats.Dataset do
     end
   end
 
+  @doc """
+  Same as read_continents/1 but returns an exception instead.
+
+  ## Examples
+
+      iex> Ats.Dataset.read_continents!("test/data/valid/continents.geojson")
+      [%Ats.World.Continent{
+          name: "Europe",
+          shape: %Geo.MultiPolygon{coordinates: [], properties: %{}, srid: 4326}
+        }]
+
+  You can get an error if path does not exists or file is not properly formatted.
+
+      iex> Ats.Dataset.read_continents!("invalid path")
+      ** (File.Error) could not read file "invalid path": no such file or directory
+
+  If the file is not properly formatted:
+
+      iex> Ats.Dataset.read_continents!("test/data/invalid/continent_format.geojson")
+      ** (RuntimeError) invalid format for file "test/data/invalid/continent_format.geojson"
+  """
   @spec read_continents!(binary) :: list(Ats.World.Continent.t()) | no_return()
   def read_continents!(path) do
     case read_continents(path) do

@@ -2,6 +2,7 @@
   "skip_files": [
     "test/support",
     "lib/ats_web.ex",
-    "lib/ats_web/router.ex"
+    "lib/ats_web/router.ex",
+    "lib/ats/application.ex"
   ]
 }
