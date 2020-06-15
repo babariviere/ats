@@ -30,6 +30,15 @@ defmodule Ats.MixProject do
       docs: [
         main: "Ats",
         extras: ["README.md", "guides/examples.md"]
+      ],
+
+      # Test
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
       ]
     ]
   end
@@ -89,7 +98,8 @@ defmodule Ats.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:credo, "~> 1.3", only: [:dev, :test], runtime: false},
       {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]},
-      {:bureaucrat, "~> 0.2.7"}
+      {:bureaucrat, "~> 0.2.7"},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 

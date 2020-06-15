@@ -27,7 +27,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhg1MjVZgRpgKm4AAARB
+x-request-id: FhizSyxPQ5f1FHgAAAZB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -76,7 +76,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhg1MizX3hg52IcAAADK
+x-request-id: FhizSy3ibaUukywAAAdB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -126,7 +126,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhg1Mjhp7e79eEQAAAbB
+x-request-id: FhizSyrqq8FT4qwAAAED
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -177,7 +177,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: Fhg1Mja1lidA0UMAAAUB
+x-request-id: FhizSyjyipS7r1UAAATB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -198,6 +198,59 @@ content-type: application/json; charset=utf-8
       }
     }
   }
+}
+```
+
+### jobs query: job not found
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+{
+  job(id: "0") {
+    name
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: FhizSyF4UreI51IAAAAJ
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "data": {
+    "job": null
+  },
+  "errors": [
+    {
+      "locations": [
+        {
+          "column": 3,
+          "line": 2
+        }
+      ],
+      "message": "Job with id 0 is not found",
+      "path": [
+        "job"
+      ]
+    }
+  ]
 }
 ```
 

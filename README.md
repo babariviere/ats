@@ -81,6 +81,24 @@ mix docs
 
 After that, open `doc/index.html` and go to `Pages/ATS Examples`
 
+For test coverage, `coveralls` is used. To use it:
+
+```sh
+mix coveralls
+```
+
+It will output a report in the CLI. If you want a nice interface, you can generate an html webpage:
+
+```sh
+mix coveralls.html
+# For firefox
+firefox cover/excoveralls.html
+# For chrome
+google-chrome cover/excoveralls.html
+```
+
+If you need to exclude a file from test coverage, you can add it in `coveralls.json`.
+
 ## Datasets
 
 ### Continents

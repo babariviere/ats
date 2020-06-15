@@ -150,5 +150,35 @@ defmodule AtsWeb.SchemaTest do
                }
              }
     end
+
+    test "query: job not found", %{conn: conn} do
+      query = """
+      {
+        job(id: "0") {
+          name
+        }
+      }
+      """
+
+      conn =
+        conn
+        |> post("/api", %{
+          "query" => query
+        })
+        |> doc
+
+      assert json_response(conn, 200) == %{
+               "data" => %{
+                 "job" => nil
+               },
+               "errors" => [
+                 %{
+                   "locations" => [%{"column" => 3, "line" => 2}],
+                   "message" => "Job with id 0 is not found",
+                   "path" => ["job"]
+                 }
+               ]
+             }
+    end
   end
 end

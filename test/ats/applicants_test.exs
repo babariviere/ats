@@ -138,5 +138,16 @@ defmodule Ats.ApplicantsTest do
       job = job_fixture()
       assert %Ecto.Changeset{} = Applicants.change_job(job)
     end
+
+    test "Job.profession_changeset/2 takes a profession" do
+      attrs = Map.put(@valid_attrs, :profession, %{name: "Tester", category_name: "Tech"})
+
+      assert {:ok, %Job{} = job} =
+               %Job{}
+               |> Applicants.Job.profession_changeset(attrs)
+               |> Ats.Repo.insert()
+
+      assert job == Applicants.get_job!(job.id) |> Repo.preload(:profession)
+    end
   end
 end
