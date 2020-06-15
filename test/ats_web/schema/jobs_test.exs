@@ -201,4 +201,54 @@ defmodule AtsWeb.Schema.JobsTest do
              ]
            }
   end
+
+  describe "profession" do
+    alias Ats.Applicants.Profession
+
+    @job_with_profession %Job{
+      id: 4,
+      name: "D",
+      contract_type: :part_time,
+      place: %Geo.Point{coordinates: {0.0, 0.0}, srid: 4326},
+      profession_id: 1
+    }
+
+    @profession %Profession{
+      id: 1,
+      name: "A",
+      category_name: "Tech"
+    }
+
+    setup do
+      Repo.insert!(@profession)
+      Repo.insert!(@job_with_profession)
+      :ok
+    end
+
+    test "query: get a job's profession", %{conn: conn} do
+      query = """
+      {
+        job(id: "4") {
+          name
+          profession {
+            categoryName
+          }
+        }
+      }
+      """
+
+      conn =
+        conn
+        |> post("/api", %{
+          "query" => query
+        })
+        |> doc("Get a job's profession")
+
+      assert json_response(conn, 200) == %{
+               "data" => %{
+                 "job" => %{"name" => "D", "profession" => %{"categoryName" => "Tech"}}
+               }
+             }
+    end
+  end
 end

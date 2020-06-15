@@ -8,6 +8,8 @@ defmodule AtsWeb.Schema.JobTypes do
   import AtsWeb.Schema.Pagination, only: [pagination: 0]
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
+  alias Ats.Applicants
+
   @desc "Different contract types that a job accepts"
   enum :contract_type do
     value(:vie)
