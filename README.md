@@ -36,6 +36,8 @@ Or if you want to use the API, you can make GraphQL queries to [localhost:4000/a
 You can find examples [here](guides/examples.md).
 They are generated from tests. More info [here](#tests).
 
+**Note**: If you want data persistence, uncomment the lines in `docker-compose.yaml`.
+
 ### Categorize datasets
 
 A command to categorize a set of jobs category per continents. To execute it
@@ -232,3 +234,9 @@ However, I choose PostgreSQL because:
 - PostgreSQL has better performance than MongoDB
 
 Otherwise, for scalability, MongoDB is better as it handles horizontal scaling compared to PostgreSQL.
+
+Links on performances comparison between MongoDB and PostgreSQL:
+
+- https://www.arangodb.com/2018/02/nosql-performance-benchmark-2018-mongodb-postgresql-orientdb-neo4j-arangodb/
+- https://www.enterprisedb.com/blog/comparison-joins-mongodb-vs-postgresql
+- https://speakerdeck.com/ongres/mongodb-vs-postgresql-performance
