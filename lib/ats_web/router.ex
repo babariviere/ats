@@ -10,6 +10,7 @@ defmodule AtsWeb.Router do
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       schema: AtsWeb.Schema,
+      socket: AtsWeb.UserSocket,
       interface: :simple,
       context: %{pubsub: AtsWeb.Endpoint}
 

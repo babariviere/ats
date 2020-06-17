@@ -1,6 +1,9 @@
 defmodule AtsWeb.UserSocket do
   use Phoenix.Socket
 
+  use Absinthe.Phoenix.Socket,
+    schema: AtsWeb.Schema
+
   ## Channels
   # channel "room:*", AtsWeb.RoomChannel
 

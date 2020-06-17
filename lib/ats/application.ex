@@ -14,7 +14,8 @@ defmodule Ats.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Ats.PubSub},
       # Start the Endpoint (http/https)
-      AtsWeb.Endpoint
+      AtsWeb.Endpoint,
+      {Absinthe.Subscription, AtsWeb.Endpoint}
       # Start a worker by calling: Ats.Worker.start_link(arg)
       # {Ats.Worker, arg}
     ]

@@ -59,4 +59,22 @@ defmodule AtsWeb.Schema do
   mutation do
     import_fields(:job_mutations)
   end
+
+  subscription do
+    field :job_added, :job do
+      config(fn _args, _ ->
+        {:ok, topic: "*"}
+      end)
+
+      trigger(:create_job,
+        topic: fn _job ->
+          "*"
+        end
+      )
+
+      resolve(fn job, _, _ ->
+        {:ok, job}
+      end)
+    end
+  end
 end
