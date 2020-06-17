@@ -51,4 +51,16 @@ defmodule AtsWeb.Schema.JobTypes do
       resolve(&Resolvers.Jobs.list_jobs/3)
     end
   end
+
+  object :job_mutations do
+    @desc "Create a new job."
+    field :create_job, :job do
+      arg(:name, non_null(:string))
+      arg(:contract_type, non_null(:contract_type))
+      arg(:place, :input_point)
+      arg(:profession_id, :id)
+
+      resolve(&Resolvers.Jobs.create_job/3)
+    end
+  end
 end

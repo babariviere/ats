@@ -23,6 +23,11 @@ defmodule AtsWeb.Schema do
   import_types(AtsWeb.Schema.ProfessionTypes)
   import_types(AtsWeb.Schema.ContinentTypes)
 
+  input_object :input_point do
+    field :longitude, non_null(:float)
+    field :latitude, non_null(:float)
+  end
+
   @desc "A geographic point"
   object :point do
     field :longitude, non_null(:float)
@@ -49,5 +54,9 @@ defmodule AtsWeb.Schema do
         {:ok, args}
       end)
     end
+  end
+
+  mutation do
+    import_fields(:job_mutations)
   end
 end

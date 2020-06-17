@@ -6,6 +6,7 @@ defmodule AtsWeb.Resolvers.Jobs do
   import Ecto.Query, only: [from: 2]
   import Geo.PostGIS
 
+  alias Ats.Applicants
   alias Ats.Applicants.Job
   alias Ats.Repo
   alias AtsWeb.Schema.Pagination
@@ -50,6 +51,15 @@ defmodule AtsWeb.Resolvers.Jobs do
       nil -> {:error, "Job with id #{id} does not exists"}
       job -> {:ok, job}
     end
+  end
+
+  @doc """
+  Creates a new job.
+
+  Note: there is no authorization as it is a toy project
+  """
+  def create_job(_root, args, _info) do
+    Applicants.create_job(args)
   end
 
   @doc """

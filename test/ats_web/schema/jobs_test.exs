@@ -202,6 +202,88 @@ defmodule AtsWeb.Schema.JobsTest do
            }
   end
 
+  test "mutation: create a new job", %{conn: conn} do
+    query = """
+    mutation {
+      createJob(name: "Test Job", contractType: FULL_TIME) {
+        name
+        contractType
+      }
+    }
+    """
+
+    conn =
+      conn
+      |> post("/api", %{
+        "query" => query
+      })
+      |> doc("Create a new job")
+
+    assert json_response(conn, 200) == %{
+             "data" => %{
+               "createJob" => %{
+                 "name" => "Test Job",
+                 "contractType" => "FULL_TIME"
+               }
+             }
+           }
+  end
+
+  test "mutation: create a new job without name", %{conn: conn} do
+    query = """
+    mutation {
+      createJob(contractType: FULL_TIME) {
+        name
+        contractType
+      }
+    }
+    """
+
+    conn =
+      conn
+      |> post("/api", %{
+        "query" => query
+      })
+      |> doc("Create a new job without name")
+
+    assert json_response(conn, 200) == %{
+             "errors" => [
+               %{
+                 "locations" => [%{"column" => 3, "line" => 2}],
+                 "message" => "In argument \"name\": Expected type \"String!\", found null."
+               }
+             ]
+           }
+  end
+
+  test "mutation: create a new job without contract type", %{conn: conn} do
+    query = """
+    mutation {
+      createJob(name: "Test Job") {
+        name
+        contractType
+      }
+    }
+    """
+
+    conn =
+      conn
+      |> post("/api", %{
+        "query" => query
+      })
+      |> doc("Create a new job without contractType")
+
+    assert json_response(conn, 200) == %{
+             "errors" => [
+               %{
+                 "locations" => [%{"column" => 3, "line" => 2}],
+                 "message" =>
+                   "In argument \"contractType\": Expected type \"ContractType!\", found null."
+               }
+             ]
+           }
+  end
+
   describe "profession" do
     alias Ats.Applicants.Profession
 

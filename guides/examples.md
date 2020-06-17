@@ -27,7 +27,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcgEUXuMYnUAAACF
+x-request-id: Fhli4_VNDOH5d1oAAAFK
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -76,7 +76,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcRmQRrU3OoAAAkB
+x-request-id: Fhli4_Zv5O_yb58AAAeB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -122,7 +122,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcbK2cBu3m0AAAJK
+x-request-id: Fhli4_eWVCpHz4wAAAhB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -163,7 +163,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcWKiFqWAXMAAAuB
+x-request-id: Fhli4_e_07wWacoAAANG
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -218,7 +218,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTb0IjDGa0mAAAADK
+x-request-id: Fhli4-0lwCWa0mAAAAAI
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -270,7 +270,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTce-YFTXuEkAAA4B
+x-request-id: Fhli4-1oL-EVjAEAAAJJ
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -319,7 +319,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcYxrQMWacoAAAxB
+x-request-id: Fhli4_e_o6OWAXMAAAkB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -369,7 +369,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcjq3XlaSXIAAAPK
+x-request-id: Fhli4_aKdEPo--QAAAIG
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -416,7 +416,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTceV-6QxBVkAAA1B
+x-request-id: Fhli4_m0JtzXuEkAAAsB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -457,7 +457,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcdsWgY6h-QAAAMK
+x-request-id: Fhli4_rQa4BaSXIAAABI
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -479,6 +479,145 @@ content-type: application/json; charset=utf-8
       "path": [
         "job"
       ]
+    }
+  ]
+}
+```
+
+### Create a new job
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+mutation {
+  createJob(name: "Test Job", contractType: FULL_TIME) {
+    name
+    contractType
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: Fhli4_r-m7TbZb0AAAvB
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "data": {
+    "createJob": {
+      "contractType": "FULL_TIME",
+      "name": "Test Job"
+    }
+  }
+}
+```
+
+### Create a new job without name
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+mutation {
+  createJob(contractType: FULL_TIME) {
+    name
+    contractType
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: Fhli4_tNPUVHxBgAAAQG
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "errors": [
+    {
+      "locations": [
+        {
+          "column": 3,
+          "line": 2
+        }
+      ],
+      "message": "In argument \"name\": Expected type \"String!\", found null."
+    }
+  ]
+}
+```
+
+### Create a new job without contractType
+#### Request
+* __Method:__ POST
+* __Path:__ /api
+* __Request headers:__
+
+```
+content-type: multipart/mixed; boundary=plug_conn_test
+```
+* __Request query:__
+
+```
+mutation {
+  createJob(name: "Test Job") {
+    name
+    contractType
+  }
+}
+
+```
+
+#### Response
+* __Status__: 200
+* __Response headers:__
+
+```
+cache-control: max-age=0, private, must-revalidate
+x-request-id: Fhli4_t82B0mr1IAAAyB
+content-type: application/json; charset=utf-8
+```
+* __Response body:__
+
+```json
+{
+  "errors": [
+    {
+      "locations": [
+        {
+          "column": 3,
+          "line": 2
+        }
+      ],
+      "message": "In argument \"contractType\": Expected type \"ContractType!\", found null."
     }
   ]
 }
@@ -513,7 +652,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcMvDEN-fa8AAAeB
+x-request-id: Fhli4_kA3qRu3m0AAAnB
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -559,7 +698,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTcPV6Zb5d1oAAAGK
+x-request-id: Fhli4_RBQkB3344AAAaC
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
@@ -611,7 +750,7 @@ content-type: multipart/mixed; boundary=plug_conn_test
 
 ```
 cache-control: max-age=0, private, must-revalidate
-x-request-id: FhjOTbtoZpVMK_gAAAdB
+x-request-id: Fhli4-tKYme7r1UAAACH
 content-type: application/json; charset=utf-8
 ```
 * __Response body:__
