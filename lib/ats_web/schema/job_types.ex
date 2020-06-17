@@ -41,7 +41,7 @@ defmodule AtsWeb.Schema.JobTypes do
   object :job_queries do
     @desc "Get a job."
     field :job, :job do
-      arg(:id, :id)
+      arg(:id, non_null(:id))
       resolve(&Resolvers.Jobs.get_job/3)
     end
 
